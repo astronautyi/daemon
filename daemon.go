@@ -238,7 +238,7 @@ const (
 // description: any explanation, what is the service, its purpose
 //
 // kind: what kind of daemon to create
-func New(name, description string, kind Kind, dependencies ...string) (Daemon, error) {
+func New(name, path, description string, kind Kind, dependencies ...string) (Daemon, error) {
 	switch runtime.GOOS {
 	case "darwin":
 		if kind == SystemDaemon {
@@ -258,5 +258,5 @@ func New(name, description string, kind Kind, dependencies ...string) (Daemon, e
 		}
 	}
 
-	return newDaemon(strings.Join(strings.Fields(name), "_"), description, kind, dependencies)
+	return newDaemon(strings.Join(strings.Fields(name), "_"), path, description, kind, dependencies)
 }

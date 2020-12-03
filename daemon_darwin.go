@@ -17,14 +17,15 @@ import (
 // darwinRecord - standard record (struct) for darwin version of daemon package
 type darwinRecord struct {
 	name         string
+	path         string
 	description  string
 	kind         Kind
 	dependencies []string
 }
 
-func newDaemon(name, description string, kind Kind, dependencies []string) (Daemon, error) {
+func newDaemon(name, path, description string, kind Kind, dependencies []string) (Daemon, error) {
 
-	return &darwinRecord{name, description, kind, dependencies}, nil
+	return &darwinRecord{name, path, description, kind, dependencies}, nil
 }
 
 // Standard service path for system daemons
@@ -97,7 +98,7 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 	}
 	defer file.Close()
 
-	execPatch, err := executablePath(darwin.name)
+	execPatch, err := executablePath(darwin.path)
 	if err != nil {
 		return installAction + failed, err
 	}

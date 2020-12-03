@@ -15,6 +15,7 @@ import (
 // upstartRecord - standard record (struct) for linux upstart version of daemon package
 type upstartRecord struct {
 	name         string
+	path         string
 	description  string
 	kind         Kind
 	dependencies []string
@@ -72,7 +73,7 @@ func (linux *upstartRecord) Install(args ...string) (string, error) {
 	}
 	defer file.Close()
 
-	execPatch, err := executablePath(linux.name)
+	execPatch, err := executablePath(linux.path)
 	if err != nil {
 		return installAction + failed, err
 	}
